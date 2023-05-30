@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Gauss-Seidel</title>
+  <script>
+    function gaussSeidel() {
+      var matriz = [];
+      var numIteracao = parseInt(document.getElementById("iteracoes").value); 
+      var n = parseInt(document.getElementById("variaveis").value); 
+      var x = new Array(n).fill(0); 
+
+      
+      for (var i = 0; i < n; i++) {
+        matrix[i] = [];
+        for (var j = 0; j <= n; j++) {
+          matrix[i][j] = parseFloat(document.getElementById("coeficiente" + i + "-" + j).value);
+        }
+      }
+
+      for (var iteracao = 0; iteracao < numIteracao; iteracao++) {
+        for (var i = 0; i < n; i++) {
+          var sum = 0;
+          for (var j = 0; j < n; j++) {
+            if (j !== i) {
+              sum += matriz[i][j] * x[j];
+            }
+          }
+          x[i] = (matriz[i][n] - sum) / matrix[i][i];
+        }
+      }
+
+     
+      var result = "";
+      for (var i = 0; i < n; i++) {
+        result += "x" + (i + 1) + " = " + x[i].toFixed(4) + "<br>";
+      }
+      document.getElementById("result").innerHTML = result;
+    }
+  </script>
+</head>
+<body>
+  <h1>Gauss-Seidel</h1>
+  <label for="variaveis">Número de Variáveis:</label>
+  <input type="number" id="variables" min="1" value="3"><br>
+  <label for="iteracao">Número de Iterações:</label>
+  <input type="number" id="iterations" min="1" value="10"><br>
+
+  <h2>Coeficientes e Termos Constantes:</h2>
+  <table id="matriz">
+   
+  </table>
+
+  <button onclick="gaussSeidel()">Calcular</button>
+
+  <h2>Resultados:</h2>
+  <div id="result"></div>
+
+  <script>
+   
+    var variables = document.getElementById("variaveis");
+    var matrix = document.getElementById("matriz");
+
+    variables.addEventListener("change", function() {
+      var n = parseInt(variables.value);
+      var html = "";
+
+      for (var i = 0; i < n; i++) {
+        html += "<tr>";
+        for (var j = 0; j <= n; j++) {
+          html += "<td><input type='number' id='coeficiente" + i + "-" + j + "'></td>";
+        }
+        html += "</tr>";
+      }
+
+      matrix.innerHTML = html;
+    });
+  </script>
+</body>
+</html>
